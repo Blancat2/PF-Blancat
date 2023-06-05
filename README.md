@@ -1,4 +1,4 @@
-# Dashboard
+# PF Blancat
 
 Usuario admin para iniciar sesion:
 email: agus@gmail.com
