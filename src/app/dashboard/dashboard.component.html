@@ -1,0 +1,70 @@
+<mat-drawer-container class="example-container" autosize>
+
+
+  <mat-drawer [opened]="true" #drawer class="example-sidenav" mode="side">
+
+
+    <img width="50" height="50" src="../../assets/img/avatar.svg">
+
+    <p>{{ (authUser$ | async)?.nombre }}</p>
+    
+    <p>{{ (authUser$ | async)?.email }}</p>
+    <p>{{ (authUser$ | async)?.role }}</p>
+
+
+    <mat-nav-list>
+      <ng-container *ngFor="let link of links">
+        <a
+          [routerLink]="link.path"
+          mat-list-item
+          *ngIf="
+            !link.allowedRoles.length || (verifyRole(link) | async)
+          "
+        >
+          <mat-icon *ngIf="link.icon">{{ link.icon }}</mat-icon>
+          {{ link.title }}
+        </a>
+      </ng-container>
+      <a (click)="logout()" mat-list-item> Cerrar sesión </a>
+    </mat-nav-list>
+
+
+  </mat-drawer>
+
+
+  <div class="example-sidenav-content">
+
+    <mat-toolbar color="primary">
+      <div class="flex justify-content-between">
+        <div>
+          <button
+            (click)="drawer.toggle()"
+            mat-icon-button
+            class="example-icon"
+            aria-label="Example icon-button with menu icon"
+          >
+            <mat-icon>menu</mat-icon>
+          </button>
+          <span>Modulo de Gestion Coder </span>
+          <span class="example-spacer"></span>
+          <button
+            mat-icon-button
+            class="example-icon favorite-icon"
+            aria-label="Example icon-button with heart icon"
+          >
+            <mat-icon>code</mat-icon>
+          </button>
+
+        </div>
+        <p>{{ (authUser$ | async)?.nombre }}</p>
+      </div>
+    </mat-toolbar>
+
+
+    <main>
+      <router-outlet></router-outlet>
+
+      
+    </main>
+  </div>
+</mat-drawer-container>
